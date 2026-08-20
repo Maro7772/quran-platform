@@ -1,9 +1,53 @@
+import { v2 as cloudinary } from 'cloudinary';
+
+// إعداد خدمة Cloudinary لرفع وتشغيل الفيديوهات السحابية بجودة عالية وسرعة فائقة
+if (process.env.CLOUDINARY_CLOUD_NAME) {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+    secure: true,
+  });
+}
+
 export interface NormalizedVideo {
   type: 'direct' | 'youtube' | 'vimeo' | 'drive' | 'iframe';
   embedUrl: string;
   originalUrl: string;
 }
 
+/**
+ * رفع ملف فيديو مباشرة إلى Cloudinary
+ */
+export const uploadVideoToCloudinary = async (
+  fileBuffer: Buffer,
+  fileName: string
+): Promise<{ secure_url: string; public_id: string; duration?: number }> => {
+  return new Promise((resolve, reject) => {
+    const cleanName = fileName.replace(/\.[^/.]+$/, '').replace(/[^a-zA-Z0-9]/g, '_');
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        resource_type: 'video',
+        folder: 'quran-platform/recordings',
+        public_id: `quran_session_${Date.now()}_${cleanName}`,
+      },
+      (error, result) => {
+        if (error) return reject(error);
+        if (!result) return reject(new Error('فشل الرفع إلى Cloudinary'));
+        resolve({
+          secure_url: result.secure_url,
+          public_id: result.public_id,
+          duration: result.duration,
+        });
+      }
+    );
+    uploadStream.end(fileBuffer);
+  });
+};
+
+/**
+ * معالجة وتحليل جميع أنواع روابط الفيديوهات (Cloudinary, YouTube, Drive, Vimeo, Direct MP4)
+ */
 export const normalizeVideoUrl = (rawUrl: string): NormalizedVideo => {
   if (!rawUrl) {
     return {
@@ -52,7 +96,7 @@ export const normalizeVideoUrl = (rawUrl: string): NormalizedVideo => {
   // 4. Local Uploads or direct server uploads
   if (trimmed.startsWith('/uploads/') || trimmed.startsWith('uploads/')) {
     const cleanPath = trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
-    const baseUrl = process.env.API_URL || `http://localhost:${process.env.PORT || 5000}`;
+    const baseUrl = process.env.API_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://quran-platform-api.vercel.app');
     const fullUrl = `${baseUrl}${cleanPath}`;
     return {
       type: 'direct',
@@ -61,8 +105,9 @@ export const normalizeVideoUrl = (rawUrl: string): NormalizedVideo => {
     };
   }
 
-  // 5. Direct MP4 / WebM / Media
+  // 5. Cloudinary & Direct MP4 / WebM / Media
   if (
+    trimmed.includes('cloudinary.com') ||
     trimmed.endsWith('.mp4') ||
     trimmed.endsWith('.webm') ||
     trimmed.endsWith('.mkv') ||
@@ -86,7 +131,7 @@ export const normalizeVideoUrl = (rawUrl: string): NormalizedVideo => {
     };
   }
 
-  // 7. Fallback to mock CDN path or sample video
+  // 7. Fallback
   return {
     type: 'direct',
     embedUrl: trimmed,
@@ -96,7 +141,7 @@ export const normalizeVideoUrl = (rawUrl: string): NormalizedVideo => {
 
 export const generateSecurePlaybackUrl = async (
   storageKey: string,
-  expiresInHours: number = 2
+  _expiresInHours: number = 2
 ): Promise<{ url: string; embedUrl: string; type: string }> => {
   const normalized = normalizeVideoUrl(storageKey);
   return {
@@ -105,4 +150,3 @@ export const generateSecurePlaybackUrl = async (
     type: normalized.type,
   };
 };
-

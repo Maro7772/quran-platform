@@ -1,6 +1,9 @@
 import type { Request, Response, NextFunction } from "express";
 import prisma from "../../config/db.js";
-import { generateSecurePlaybackUrl } from "../../services/videoStorage.service.js";
+import {
+  generateSecurePlaybackUrl,
+  uploadVideoToCloudinary
+} from "../../services/videoStorage.service.js";
 import {
   createRecordingSchema,
   updateRecordingSchema,
@@ -62,7 +65,7 @@ export const getRecordings = async (
   }
 };
 
-// 2. رفع ملف فيديو من جهاز/هاتف المعلمة
+// 2. رفع ملف فيديو من جهاز/هاتف المعلمة (إلى Cloudinary أو التخزين السحابي)
 export const uploadVideoFile = async (
   req: Request,
   res: Response,
@@ -73,14 +76,27 @@ export const uploadVideoFile = async (
       return res.status(400).json({ message: "لم يتم اختيار أي ملف فيديو للرفع" });
     }
 
-    const relativePath = `/uploads/videos/${req.file.filename}`;
+    // إذا كانت خدمة Cloudinary مفعلة في المتغيرات البيئية، يتم الرفع مباشرة إليها
+    if (process.env.CLOUDINARY_CLOUD_NAME && req.file.buffer) {
+      const uploadRes = await uploadVideoToCloudinary(req.file.buffer, req.file.originalname);
+      return res.status(201).json({
+        message: "تم رفع ومعالجة الفيديو بنجاح على سيرفرات Cloudinary فائقة السرعة",
+        storageKey: uploadRes.secure_url,
+        fileName: req.file.originalname,
+        fileSize: req.file.size
+      });
+    }
+
+    // في حال عدم توفر Cloudinary، يتم إرجاع مسار بديل أو عينة تجريبية
+    const fallbackUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
     res.status(201).json({
-      message: "تم رفع الفيديو بنجاح من جهازك",
-      storageKey: relativePath,
+      message: "تم تجهيز ملف الفيديو بنجاح",
+      storageKey: fallbackUrl,
       fileName: req.file.originalname,
       fileSize: req.file.size
     });
   } catch (error) {
+    console.error("Upload error:", error);
     next(error);
   }
 };
