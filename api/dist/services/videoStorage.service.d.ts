@@ -4,6 +4,16 @@ export interface NormalizedVideo {
     originalUrl: string;
 }
 /**
+ * توليد توقيع أمني للرفع المباشر من المتصفح إلى Cloudinary بدون وسيط (Direct Signed Upload)
+ */
+export declare const getCloudinaryUploadSignature: (folder?: string) => {
+    signature: string;
+    timestamp: number;
+    apiKey: string;
+    cloudName: string;
+    folder: string;
+};
+/**
  * رفع ملف فيديو مباشرة إلى Cloudinary
  */
 export declare const uploadVideoToCloudinary: (fileBuffer: Buffer, fileName: string) => Promise<{

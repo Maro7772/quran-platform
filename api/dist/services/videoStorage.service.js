@@ -7,6 +7,24 @@ cloudinary.config({
     secure: true,
 });
 /**
+ * توليد توقيع أمني للرفع المباشر من المتصفح إلى Cloudinary بدون وسيط (Direct Signed Upload)
+ */
+export const getCloudinaryUploadSignature = (folder = 'quran-platform/recordings') => {
+    const timestamp = Math.round(new Date().getTime() / 1000);
+    const paramsToSign = {
+        folder,
+        timestamp,
+    };
+    const signature = cloudinary.utils.api_sign_request(paramsToSign, process.env.CLOUDINARY_API_SECRET || "wfL97Z3ZJqDyCsmOFXFRmcDA4oI");
+    return {
+        signature,
+        timestamp,
+        apiKey: process.env.CLOUDINARY_API_KEY || "344483869948133",
+        cloudName: process.env.CLOUDINARY_CLOUD_NAME || "dr7n9ah9f",
+        folder,
+    };
+};
+/**
  * رفع ملف فيديو مباشرة إلى Cloudinary
  */
 export const uploadVideoToCloudinary = async (fileBuffer, fileName) => {

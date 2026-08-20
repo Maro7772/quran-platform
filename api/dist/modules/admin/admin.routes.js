@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { getStudents, updateStudentStatus } from "./admin.controller.js";
 import { getSessions, createSession, updateSession, deleteSession, getAttendance, updateAttendance } from "./session.controller.js";
-import { getRecordings, createRecording, updateRecording, updateRecordingAccess, publishRecording, deleteRecording, uploadVideoFile, getRecordingPlayback } from "./recording.controller.js";
+import { getRecordings, createRecording, updateRecording, updateRecordingAccess, publishRecording, deleteRecording, uploadVideoFile, getRecordingPlayback, getUploadSignature } from "./recording.controller.js";
 import { authenticate, authorize } from "../../middleware/auth.middleware.js";
 import { uploadVideo } from "../../middleware/upload.middleware.js";
 const router = Router();
@@ -20,6 +20,7 @@ router.get("/attendance/:sessionId", getAttendance);
 router.put("/attendance/:sessionId", updateAttendance);
 // --- Recordings Management ---
 router.get("/recordings", getRecordings);
+router.get("/recordings/upload-signature", getUploadSignature);
 router.get("/recordings/:id/playback", getRecordingPlayback);
 router.post("/recordings", createRecording);
 router.post("/recordings/upload", uploadVideo.single("video"), uploadVideoFile);

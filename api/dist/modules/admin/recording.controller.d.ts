@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 export declare const getRecordings: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+export declare const getUploadSignature: (_req: Request, res: Response, next: NextFunction) => Promise<void>;
 export declare const uploadVideoFile: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
 export declare const createRecording: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 export declare const updateRecording: (req: Request, res: Response, next: NextFunction) => Promise<void>;

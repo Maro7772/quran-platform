@@ -1,5 +1,5 @@
 import prisma from "../../config/db.js";
-import { generateSecurePlaybackUrl, uploadVideoToCloudinary } from "../../services/videoStorage.service.js";
+import { generateSecurePlaybackUrl, uploadVideoToCloudinary, getCloudinaryUploadSignature } from "../../services/videoStorage.service.js";
 import { createRecordingSchema, updateRecordingSchema, updateRecordingAccessSchema, publishRecordingSchema } from "./admin.schema.js";
 // 1. جلب كل التسجيلات مع إحصائيات الحضور والغياب وقائمة الطالبات المخصص لهن التسجيل
 export const getRecordings = async (req, res, next) => {
@@ -48,7 +48,17 @@ export const getRecordings = async (req, res, next) => {
         next(error);
     }
 };
-// 2. رفع ملف فيديو من جهاز/هاتف المعلمة (إلى Cloudinary أو التخزين السحابي)
+// 2. الحصول على توقيع أمني للرفع المباشر إلى Cloudinary من المتصفح
+export const getUploadSignature = async (_req, res, next) => {
+    try {
+        const sigData = getCloudinaryUploadSignature();
+        res.status(200).json(sigData);
+    }
+    catch (error) {
+        next(error);
+    }
+};
+// 3. رفع ملف فيديو من جهاز/هاتف المعلمة (إلى Cloudinary أو التخزين السحابي)
 export const uploadVideoFile = async (req, res, next) => {
     try {
         if (!req.file) {
