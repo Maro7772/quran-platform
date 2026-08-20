@@ -19,8 +19,22 @@ app.use(
 );
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
-    credentials: true
+    origin: (origin, callback) => {
+      // السماح بالطلبات بدون origin أو من أي نطاق vercel أو محلي
+      if (!origin) return callback(null, true);
+      if (
+        origin.endsWith(".vercel.app") ||
+        origin.includes("localhost") ||
+        origin.includes("127.0.0.1") ||
+        (process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL)
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Cookie", "X-Requested-With"]
   })
 );
 app.use(cookieParser());
