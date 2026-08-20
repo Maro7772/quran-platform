@@ -169,7 +169,7 @@ export default function RecordingsPage() {
     );
   }, [allStudents, editSearchQuery]);
 
-  // رفع فيديو مباشرة إلى Cloudinary من المتصفح (Direct High-Speed Upload)
+  // رفع فيديو مباشرة إلى Cloudinary من المتصفح (Direct High-Speed Unsigned Upload)
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -179,20 +179,22 @@ export default function RecordingsPage() {
       setFormError('');
       setUploadProgress(5);
 
-      // 1. جلب التوقيع والبيانات من السيرفر
-      const sigRes = await api.get('/admin/recordings/upload-signature');
-      const { signature, timestamp, apiKey, cloudName, folder, uploadPreset } = sigRes.data;
+      // جلب البيانات من السيرفر
+      let cloudName = 'dr7n9ah9f';
+      let uploadPreset = 'quran_preset';
 
-      // 2. الرفع المباشر إلى Cloudinary
+      try {
+        const sigRes = await api.get('/admin/recordings/upload-signature');
+        if (sigRes.data?.cloudName) cloudName = sigRes.data.cloudName;
+        if (sigRes.data?.uploadPreset) uploadPreset = sigRes.data.uploadPreset;
+      } catch (err) {
+        console.warn('Using default preset config:', err);
+      }
+
+      // الرفع المباشر إلى Cloudinary بدون وسيط وبأقصى سرعة
       const formData = new FormData();
       formData.append('file', file);
-      if (uploadPreset) {
-        formData.append('upload_preset', uploadPreset);
-      }
-      formData.append('api_key', apiKey);
-      formData.append('timestamp', timestamp.toString());
-      formData.append('signature', signature);
-      formData.append('folder', folder);
+      formData.append('upload_preset', uploadPreset);
 
       const cloudinaryRes = await axios.post(
         `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`,
@@ -215,11 +217,7 @@ export default function RecordingsPage() {
     } catch (err: any) {
       console.error('Upload error:', err);
       const errMsg = err.response?.data?.error?.message || err.response?.data?.message || '';
-      if (errMsg.includes('actions=["create"]') || errMsg.includes('missing permissions')) {
-        setFormError('مفتاح Cloudinary ينقصه صلاحية Create. يمكنكِ إما تفعيلها من إعدادات Cloudinary أو إنشاء Unsigned Upload Preset، أو وضع رابط الفيديو (Google Drive / YouTube) في الحقل أدناه مباشرة.');
-      } else {
-        setFormError(errMsg || 'فشل في رفع الفيديو، يمكنكِ وضع رابط الفيديو (Google Drive / YouTube) مباشرة.');
-      }
+      setFormError(errMsg || 'فشل في رفع الفيديو، يمكنكِ وضع رابط الفيديو (Google Drive / YouTube) مباشرة.');
     } finally {
       setIsUploading(false);
     }
