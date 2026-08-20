@@ -1,14 +1,12 @@
 import { v2 as cloudinary } from 'cloudinary';
 
 // إعداد خدمة Cloudinary لرفع وتشغيل الفيديوهات السحابية بجودة عالية وسرعة فائقة
-if (process.env.CLOUDINARY_CLOUD_NAME) {
-  cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-    secure: true,
-  });
-}
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || "dr7n9ah9f",
+  api_key: process.env.CLOUDINARY_API_KEY || "344483869948133",
+  api_secret: process.env.CLOUDINARY_API_SECRET || "wfL97Z3ZJqDyCsmOFXFRmcDA4oI",
+  secure: true,
+});
 
 export interface NormalizedVideo {
   type: 'direct' | 'youtube' | 'vimeo' | 'drive' | 'iframe';
