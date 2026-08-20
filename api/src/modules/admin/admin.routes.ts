@@ -16,7 +16,8 @@ import {
   publishRecording,
   deleteRecording,
   uploadVideoFile,
-  getRecordingPlayback
+  getRecordingPlayback,
+  getUploadSignature
 } from "./recording.controller.js";
 import { authenticate, authorize } from "../../middleware/auth.middleware.js";
 import { uploadVideo } from "../../middleware/upload.middleware.js";
@@ -42,6 +43,7 @@ router.put("/attendance/:sessionId", updateAttendance);
 
 // --- Recordings Management ---
 router.get("/recordings", getRecordings);
+router.get("/recordings/upload-signature", getUploadSignature);
 router.get("/recordings/:id/playback", getRecordingPlayback);
 router.post("/recordings", createRecording);
 router.post("/recordings/upload", uploadVideo.single("video"), uploadVideoFile);

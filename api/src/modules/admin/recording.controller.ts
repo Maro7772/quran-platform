@@ -2,7 +2,8 @@ import type { Request, Response, NextFunction } from "express";
 import prisma from "../../config/db.js";
 import {
   generateSecurePlaybackUrl,
-  uploadVideoToCloudinary
+  uploadVideoToCloudinary,
+  getCloudinaryUploadSignature
 } from "../../services/videoStorage.service.js";
 import {
   createRecordingSchema,
@@ -65,7 +66,21 @@ export const getRecordings = async (
   }
 };
 
-// 2. رفع ملف فيديو من جهاز/هاتف المعلمة (إلى Cloudinary أو التخزين السحابي)
+// 2. الحصول على توقيع أمني للرفع المباشر إلى Cloudinary من المتصفح
+export const getUploadSignature = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const sigData = getCloudinaryUploadSignature();
+    res.status(200).json(sigData);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// 3. رفع ملف فيديو من جهاز/هاتف المعلمة (إلى Cloudinary أو التخزين السحابي)
 export const uploadVideoFile = async (
   req: Request,
   res: Response,

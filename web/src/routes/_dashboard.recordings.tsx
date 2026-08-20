@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState, useRef, useMemo } from 'react';
 import { api } from '../lib/axios';
+import axios from 'axios';
 import { useAuthStore } from '../store/useAuthStore';
 import {
   Film,
@@ -168,7 +169,7 @@ export default function RecordingsPage() {
     );
   }, [allStudents, editSearchQuery]);
 
-  // رفع فيديو من الهاتف / الجهاز
+  // رفع فيديو مباشرة إلى Cloudinary من المتصفح (Direct High-Speed Upload)
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -176,26 +177,47 @@ export default function RecordingsPage() {
     try {
       setIsUploading(true);
       setFormError('');
-      setUploadProgress(25);
+      setUploadProgress(5);
 
+      // 1. جلب التوقيع الأمني من السيرفر
+      const sigRes = await api.get('/admin/recordings/upload-signature');
+      const { signature, timestamp, apiKey, cloudName, folder } = sigRes.data;
+
+      // 2. الرفع المباشر إلى Cloudinary من المتصفح لتفادي قيود الحجم وسرعة قصوى
       const formData = new FormData();
-      formData.append('video', file);
+      formData.append('file', file);
+      formData.append('api_key', apiKey);
+      formData.append('timestamp', timestamp.toString());
+      formData.append('signature', signature);
+      formData.append('folder', folder);
 
-      setUploadProgress(60);
-      const res = await api.post('/admin/recordings/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const cloudinaryRes = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`,
+        formData,
+        {
+          onUploadProgress: (progressEvent) => {
+            if (progressEvent.total) {
+              const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+              setUploadProgress(percent);
+            }
+          },
+        }
+      );
 
       setUploadProgress(100);
-      setStorageKey(res.data.storageKey);
+      setStorageKey(cloudinaryRes.data.secure_url);
       if (!title) {
         setTitle(file.name.replace(/\.[^/.]+$/, ''));
       }
     } catch (err: any) {
-      setFormError(err.response?.data?.message || 'فشل في رفع ملف الفيديو من جهازك.');
+      console.error('Upload error:', err);
+      setFormError(
+        err.response?.data?.error?.message ||
+        err.response?.data?.message ||
+        'فشل في رفع الفيديو، يرجى المحاولة مرة أخرى أو استخدام رابط مباشر'
+      );
     } finally {
       setIsUploading(false);
-      setUploadProgress(0);
     }
   };
 
