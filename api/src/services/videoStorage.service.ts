@@ -32,6 +32,7 @@ export const getCloudinaryUploadSignature = (folder: string = 'quran-platform/re
     timestamp,
     apiKey: process.env.CLOUDINARY_API_KEY || "344483869948133",
     cloudName: process.env.CLOUDINARY_CLOUD_NAME || "dr7n9ah9f",
+    uploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET || "quran_preset",
     folder,
   };
 };

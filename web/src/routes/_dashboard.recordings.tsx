@@ -179,13 +179,16 @@ export default function RecordingsPage() {
       setFormError('');
       setUploadProgress(5);
 
-      // 1. جلب التوقيع الأمني من السيرفر
+      // 1. جلب التوقيع والبيانات من السيرفر
       const sigRes = await api.get('/admin/recordings/upload-signature');
-      const { signature, timestamp, apiKey, cloudName, folder } = sigRes.data;
+      const { signature, timestamp, apiKey, cloudName, folder, uploadPreset } = sigRes.data;
 
-      // 2. الرفع المباشر إلى Cloudinary من المتصفح لتفادي قيود الحجم وسرعة قصوى
+      // 2. الرفع المباشر إلى Cloudinary
       const formData = new FormData();
       formData.append('file', file);
+      if (uploadPreset) {
+        formData.append('upload_preset', uploadPreset);
+      }
       formData.append('api_key', apiKey);
       formData.append('timestamp', timestamp.toString());
       formData.append('signature', signature);
@@ -211,11 +214,12 @@ export default function RecordingsPage() {
       }
     } catch (err: any) {
       console.error('Upload error:', err);
-      setFormError(
-        err.response?.data?.error?.message ||
-        err.response?.data?.message ||
-        'فشل في رفع الفيديو، يرجى المحاولة مرة أخرى أو استخدام رابط مباشر'
-      );
+      const errMsg = err.response?.data?.error?.message || err.response?.data?.message || '';
+      if (errMsg.includes('actions=["create"]') || errMsg.includes('missing permissions')) {
+        setFormError('مفتاح Cloudinary ينقصه صلاحية Create. يمكنكِ إما تفعيلها من إعدادات Cloudinary أو إنشاء Unsigned Upload Preset، أو وضع رابط الفيديو (Google Drive / YouTube) في الحقل أدناه مباشرة.');
+      } else {
+        setFormError(errMsg || 'فشل في رفع الفيديو، يمكنكِ وضع رابط الفيديو (Google Drive / YouTube) مباشرة.');
+      }
     } finally {
       setIsUploading(false);
     }
