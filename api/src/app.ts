@@ -6,8 +6,8 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import authRoutes from "./modules/auth/auth.routes.js";
 import adminRoutes from "./modules/admin/admin.routes.js";
 import studentRoutes from "./modules/student/student.routes.js";
-
 import path from "path";
+import os from "os";
 
 const app = express();
 
