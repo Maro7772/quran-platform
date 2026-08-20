@@ -3,8 +3,19 @@ export interface NormalizedVideo {
     embedUrl: string;
     originalUrl: string;
 }
+/**
+ * رفع ملف فيديو مباشرة إلى Cloudinary
+ */
+export declare const uploadVideoToCloudinary: (fileBuffer: Buffer, fileName: string) => Promise<{
+    secure_url: string;
+    public_id: string;
+    duration?: number;
+}>;
+/**
+ * معالجة وتحليل جميع أنواع روابط الفيديوهات (Cloudinary, YouTube, Drive, Vimeo, Direct MP4)
+ */
 export declare const normalizeVideoUrl: (rawUrl: string) => NormalizedVideo;
-export declare const generateSecurePlaybackUrl: (storageKey: string, expiresInHours?: number) => Promise<{
+export declare const generateSecurePlaybackUrl: (storageKey: string, _expiresInHours?: number) => Promise<{
     url: string;
     embedUrl: string;
     type: string;

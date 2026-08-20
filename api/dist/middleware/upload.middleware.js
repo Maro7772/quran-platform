@@ -1,21 +1,6 @@
 import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
-// Ensure upload directory exists
-const uploadDir = path.join(process.cwd(), 'uploads', 'videos');
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-}
-const storage = multer.diskStorage({
-    destination: (_req, _file, cb) => {
-        cb(null, uploadDir);
-    },
-    filename: (_req, file, cb) => {
-        const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-        const ext = path.extname(file.originalname).toLowerCase() || '.mp4';
-        cb(null, `session-video-${uniqueSuffix}${ext}`);
-    },
-});
+// استخدام الذاكرة المؤقتة (Memory Storage) المناسبة لسيرفرات Vercel والرفع المباشر لـ Cloudinary
+const storage = multer.memoryStorage();
 const fileFilter = (_req, file, cb) => {
     const allowedMimeTypes = [
         'video/mp4',
@@ -38,7 +23,7 @@ const fileFilter = (_req, file, cb) => {
 export const uploadVideo = multer({
     storage,
     limits: {
-        fileSize: 500 * 1024 * 1024, // 500MB max
+        fileSize: 100 * 1024 * 1024, // 100MB max
     },
     fileFilter,
 });
