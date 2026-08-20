@@ -1,0 +1,1286 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace.js";
+/**
+ * Model RecordingAccess
+ *
+ */
+export type RecordingAccessModel = runtime.Types.Result.DefaultSelection<Prisma.$RecordingAccessPayload>;
+export type AggregateRecordingAccess = {
+    _count: RecordingAccessCountAggregateOutputType | null;
+    _min: RecordingAccessMinAggregateOutputType | null;
+    _max: RecordingAccessMaxAggregateOutputType | null;
+};
+export type RecordingAccessMinAggregateOutputType = {
+    id: string | null;
+    recordingId: string | null;
+    userId: string | null;
+    expiresAt: Date | null;
+    createdAt: Date | null;
+};
+export type RecordingAccessMaxAggregateOutputType = {
+    id: string | null;
+    recordingId: string | null;
+    userId: string | null;
+    expiresAt: Date | null;
+    createdAt: Date | null;
+};
+export type RecordingAccessCountAggregateOutputType = {
+    id: number;
+    recordingId: number;
+    userId: number;
+    expiresAt: number;
+    createdAt: number;
+    _all: number;
+};
+export type RecordingAccessMinAggregateInputType = {
+    id?: true;
+    recordingId?: true;
+    userId?: true;
+    expiresAt?: true;
+    createdAt?: true;
+};
+export type RecordingAccessMaxAggregateInputType = {
+    id?: true;
+    recordingId?: true;
+    userId?: true;
+    expiresAt?: true;
+    createdAt?: true;
+};
+export type RecordingAccessCountAggregateInputType = {
+    id?: true;
+    recordingId?: true;
+    userId?: true;
+    expiresAt?: true;
+    createdAt?: true;
+    _all?: true;
+};
+export type RecordingAccessAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which RecordingAccess to aggregate.
+     */
+    where?: Prisma.RecordingAccessWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of RecordingAccesses to fetch.
+     */
+    orderBy?: Prisma.RecordingAccessOrderByWithRelationInput | Prisma.RecordingAccessOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.RecordingAccessWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` RecordingAccesses from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` RecordingAccesses.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned RecordingAccesses
+    **/
+    _count?: true | RecordingAccessCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: RecordingAccessMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: RecordingAccessMaxAggregateInputType;
+};
+export type GetRecordingAccessAggregateType<T extends RecordingAccessAggregateArgs> = {
+    [P in keyof T & keyof AggregateRecordingAccess]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateRecordingAccess[P]> : Prisma.GetScalarType<T[P], AggregateRecordingAccess[P]>;
+};
+export type RecordingAccessGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.RecordingAccessWhereInput;
+    orderBy?: Prisma.RecordingAccessOrderByWithAggregationInput | Prisma.RecordingAccessOrderByWithAggregationInput[];
+    by: Prisma.RecordingAccessScalarFieldEnum[] | Prisma.RecordingAccessScalarFieldEnum;
+    having?: Prisma.RecordingAccessScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: RecordingAccessCountAggregateInputType | true;
+    _min?: RecordingAccessMinAggregateInputType;
+    _max?: RecordingAccessMaxAggregateInputType;
+};
+export type RecordingAccessGroupByOutputType = {
+    id: string;
+    recordingId: string;
+    userId: string;
+    expiresAt: Date;
+    createdAt: Date;
+    _count: RecordingAccessCountAggregateOutputType | null;
+    _min: RecordingAccessMinAggregateOutputType | null;
+    _max: RecordingAccessMaxAggregateOutputType | null;
+};
+export type GetRecordingAccessGroupByPayload<T extends RecordingAccessGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<RecordingAccessGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof RecordingAccessGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], RecordingAccessGroupByOutputType[P]> : Prisma.GetScalarType<T[P], RecordingAccessGroupByOutputType[P]>;
+}>>;
+export type RecordingAccessWhereInput = {
+    AND?: Prisma.RecordingAccessWhereInput | Prisma.RecordingAccessWhereInput[];
+    OR?: Prisma.RecordingAccessWhereInput[];
+    NOT?: Prisma.RecordingAccessWhereInput | Prisma.RecordingAccessWhereInput[];
+    id?: Prisma.StringFilter<"RecordingAccess"> | string;
+    recordingId?: Prisma.StringFilter<"RecordingAccess"> | string;
+    userId?: Prisma.StringFilter<"RecordingAccess"> | string;
+    expiresAt?: Prisma.DateTimeFilter<"RecordingAccess"> | Date | string;
+    createdAt?: Prisma.DateTimeFilter<"RecordingAccess"> | Date | string;
+    recording?: Prisma.XOR<Prisma.RecordingScalarRelationFilter, Prisma.RecordingWhereInput>;
+    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
+};
+export type RecordingAccessOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    recordingId?: Prisma.SortOrder;
+    userId?: Prisma.SortOrder;
+    expiresAt?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    recording?: Prisma.RecordingOrderByWithRelationInput;
+    user?: Prisma.UserOrderByWithRelationInput;
+};
+export type RecordingAccessWhereUniqueInput = Prisma.AtLeast<{
+    id?: string;
+    recordingId_userId?: Prisma.RecordingAccessRecordingIdUserIdCompoundUniqueInput;
+    AND?: Prisma.RecordingAccessWhereInput | Prisma.RecordingAccessWhereInput[];
+    OR?: Prisma.RecordingAccessWhereInput[];
+    NOT?: Prisma.RecordingAccessWhereInput | Prisma.RecordingAccessWhereInput[];
+    recordingId?: Prisma.StringFilter<"RecordingAccess"> | string;
+    userId?: Prisma.StringFilter<"RecordingAccess"> | string;
+    expiresAt?: Prisma.DateTimeFilter<"RecordingAccess"> | Date | string;
+    createdAt?: Prisma.DateTimeFilter<"RecordingAccess"> | Date | string;
+    recording?: Prisma.XOR<Prisma.RecordingScalarRelationFilter, Prisma.RecordingWhereInput>;
+    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
+}, "id" | "recordingId_userId">;
+export type RecordingAccessOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    recordingId?: Prisma.SortOrder;
+    userId?: Prisma.SortOrder;
+    expiresAt?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    _count?: Prisma.RecordingAccessCountOrderByAggregateInput;
+    _max?: Prisma.RecordingAccessMaxOrderByAggregateInput;
+    _min?: Prisma.RecordingAccessMinOrderByAggregateInput;
+};
+export type RecordingAccessScalarWhereWithAggregatesInput = {
+    AND?: Prisma.RecordingAccessScalarWhereWithAggregatesInput | Prisma.RecordingAccessScalarWhereWithAggregatesInput[];
+    OR?: Prisma.RecordingAccessScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.RecordingAccessScalarWhereWithAggregatesInput | Prisma.RecordingAccessScalarWhereWithAggregatesInput[];
+    id?: Prisma.StringWithAggregatesFilter<"RecordingAccess"> | string;
+    recordingId?: Prisma.StringWithAggregatesFilter<"RecordingAccess"> | string;
+    userId?: Prisma.StringWithAggregatesFilter<"RecordingAccess"> | string;
+    expiresAt?: Prisma.DateTimeWithAggregatesFilter<"RecordingAccess"> | Date | string;
+    createdAt?: Prisma.DateTimeWithAggregatesFilter<"RecordingAccess"> | Date | string;
+};
+export type RecordingAccessCreateInput = {
+    id?: string;
+    expiresAt: Date | string;
+    createdAt?: Date | string;
+    recording: Prisma.RecordingCreateNestedOneWithoutAllowedUsersInput;
+    user: Prisma.UserCreateNestedOneWithoutRecordingAccessInput;
+};
+export type RecordingAccessUncheckedCreateInput = {
+    id?: string;
+    recordingId: string;
+    userId: string;
+    expiresAt: Date | string;
+    createdAt?: Date | string;
+};
+export type RecordingAccessUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    recording?: Prisma.RecordingUpdateOneRequiredWithoutAllowedUsersNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutRecordingAccessNestedInput;
+};
+export type RecordingAccessUncheckedUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    recordingId?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type RecordingAccessCreateManyInput = {
+    id?: string;
+    recordingId: string;
+    userId: string;
+    expiresAt: Date | string;
+    createdAt?: Date | string;
+};
+export type RecordingAccessUpdateManyMutationInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type RecordingAccessUncheckedUpdateManyInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    recordingId?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type RecordingAccessListRelationFilter = {
+    every?: Prisma.RecordingAccessWhereInput;
+    some?: Prisma.RecordingAccessWhereInput;
+    none?: Prisma.RecordingAccessWhereInput;
+};
+export type RecordingAccessOrderByRelationAggregateInput = {
+    _count?: Prisma.SortOrder;
+};
+export type RecordingAccessRecordingIdUserIdCompoundUniqueInput = {
+    recordingId: string;
+    userId: string;
+};
+export type RecordingAccessCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    recordingId?: Prisma.SortOrder;
+    userId?: Prisma.SortOrder;
+    expiresAt?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+};
+export type RecordingAccessMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    recordingId?: Prisma.SortOrder;
+    userId?: Prisma.SortOrder;
+    expiresAt?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+};
+export type RecordingAccessMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    recordingId?: Prisma.SortOrder;
+    userId?: Prisma.SortOrder;
+    expiresAt?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+};
+export type RecordingAccessCreateNestedManyWithoutUserInput = {
+    create?: Prisma.XOR<Prisma.RecordingAccessCreateWithoutUserInput, Prisma.RecordingAccessUncheckedCreateWithoutUserInput> | Prisma.RecordingAccessCreateWithoutUserInput[] | Prisma.RecordingAccessUncheckedCreateWithoutUserInput[];
+    connectOrCreate?: Prisma.RecordingAccessCreateOrConnectWithoutUserInput | Prisma.RecordingAccessCreateOrConnectWithoutUserInput[];
+    createMany?: Prisma.RecordingAccessCreateManyUserInputEnvelope;
+    connect?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+};
+export type RecordingAccessUncheckedCreateNestedManyWithoutUserInput = {
+    create?: Prisma.XOR<Prisma.RecordingAccessCreateWithoutUserInput, Prisma.RecordingAccessUncheckedCreateWithoutUserInput> | Prisma.RecordingAccessCreateWithoutUserInput[] | Prisma.RecordingAccessUncheckedCreateWithoutUserInput[];
+    connectOrCreate?: Prisma.RecordingAccessCreateOrConnectWithoutUserInput | Prisma.RecordingAccessCreateOrConnectWithoutUserInput[];
+    createMany?: Prisma.RecordingAccessCreateManyUserInputEnvelope;
+    connect?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+};
+export type RecordingAccessUpdateManyWithoutUserNestedInput = {
+    create?: Prisma.XOR<Prisma.RecordingAccessCreateWithoutUserInput, Prisma.RecordingAccessUncheckedCreateWithoutUserInput> | Prisma.RecordingAccessCreateWithoutUserInput[] | Prisma.RecordingAccessUncheckedCreateWithoutUserInput[];
+    connectOrCreate?: Prisma.RecordingAccessCreateOrConnectWithoutUserInput | Prisma.RecordingAccessCreateOrConnectWithoutUserInput[];
+    upsert?: Prisma.RecordingAccessUpsertWithWhereUniqueWithoutUserInput | Prisma.RecordingAccessUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: Prisma.RecordingAccessCreateManyUserInputEnvelope;
+    set?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    disconnect?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    delete?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    connect?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    update?: Prisma.RecordingAccessUpdateWithWhereUniqueWithoutUserInput | Prisma.RecordingAccessUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?: Prisma.RecordingAccessUpdateManyWithWhereWithoutUserInput | Prisma.RecordingAccessUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: Prisma.RecordingAccessScalarWhereInput | Prisma.RecordingAccessScalarWhereInput[];
+};
+export type RecordingAccessUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: Prisma.XOR<Prisma.RecordingAccessCreateWithoutUserInput, Prisma.RecordingAccessUncheckedCreateWithoutUserInput> | Prisma.RecordingAccessCreateWithoutUserInput[] | Prisma.RecordingAccessUncheckedCreateWithoutUserInput[];
+    connectOrCreate?: Prisma.RecordingAccessCreateOrConnectWithoutUserInput | Prisma.RecordingAccessCreateOrConnectWithoutUserInput[];
+    upsert?: Prisma.RecordingAccessUpsertWithWhereUniqueWithoutUserInput | Prisma.RecordingAccessUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: Prisma.RecordingAccessCreateManyUserInputEnvelope;
+    set?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    disconnect?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    delete?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    connect?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    update?: Prisma.RecordingAccessUpdateWithWhereUniqueWithoutUserInput | Prisma.RecordingAccessUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?: Prisma.RecordingAccessUpdateManyWithWhereWithoutUserInput | Prisma.RecordingAccessUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: Prisma.RecordingAccessScalarWhereInput | Prisma.RecordingAccessScalarWhereInput[];
+};
+export type RecordingAccessCreateNestedManyWithoutRecordingInput = {
+    create?: Prisma.XOR<Prisma.RecordingAccessCreateWithoutRecordingInput, Prisma.RecordingAccessUncheckedCreateWithoutRecordingInput> | Prisma.RecordingAccessCreateWithoutRecordingInput[] | Prisma.RecordingAccessUncheckedCreateWithoutRecordingInput[];
+    connectOrCreate?: Prisma.RecordingAccessCreateOrConnectWithoutRecordingInput | Prisma.RecordingAccessCreateOrConnectWithoutRecordingInput[];
+    createMany?: Prisma.RecordingAccessCreateManyRecordingInputEnvelope;
+    connect?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+};
+export type RecordingAccessUncheckedCreateNestedManyWithoutRecordingInput = {
+    create?: Prisma.XOR<Prisma.RecordingAccessCreateWithoutRecordingInput, Prisma.RecordingAccessUncheckedCreateWithoutRecordingInput> | Prisma.RecordingAccessCreateWithoutRecordingInput[] | Prisma.RecordingAccessUncheckedCreateWithoutRecordingInput[];
+    connectOrCreate?: Prisma.RecordingAccessCreateOrConnectWithoutRecordingInput | Prisma.RecordingAccessCreateOrConnectWithoutRecordingInput[];
+    createMany?: Prisma.RecordingAccessCreateManyRecordingInputEnvelope;
+    connect?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+};
+export type RecordingAccessUpdateManyWithoutRecordingNestedInput = {
+    create?: Prisma.XOR<Prisma.RecordingAccessCreateWithoutRecordingInput, Prisma.RecordingAccessUncheckedCreateWithoutRecordingInput> | Prisma.RecordingAccessCreateWithoutRecordingInput[] | Prisma.RecordingAccessUncheckedCreateWithoutRecordingInput[];
+    connectOrCreate?: Prisma.RecordingAccessCreateOrConnectWithoutRecordingInput | Prisma.RecordingAccessCreateOrConnectWithoutRecordingInput[];
+    upsert?: Prisma.RecordingAccessUpsertWithWhereUniqueWithoutRecordingInput | Prisma.RecordingAccessUpsertWithWhereUniqueWithoutRecordingInput[];
+    createMany?: Prisma.RecordingAccessCreateManyRecordingInputEnvelope;
+    set?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    disconnect?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    delete?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    connect?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    update?: Prisma.RecordingAccessUpdateWithWhereUniqueWithoutRecordingInput | Prisma.RecordingAccessUpdateWithWhereUniqueWithoutRecordingInput[];
+    updateMany?: Prisma.RecordingAccessUpdateManyWithWhereWithoutRecordingInput | Prisma.RecordingAccessUpdateManyWithWhereWithoutRecordingInput[];
+    deleteMany?: Prisma.RecordingAccessScalarWhereInput | Prisma.RecordingAccessScalarWhereInput[];
+};
+export type RecordingAccessUncheckedUpdateManyWithoutRecordingNestedInput = {
+    create?: Prisma.XOR<Prisma.RecordingAccessCreateWithoutRecordingInput, Prisma.RecordingAccessUncheckedCreateWithoutRecordingInput> | Prisma.RecordingAccessCreateWithoutRecordingInput[] | Prisma.RecordingAccessUncheckedCreateWithoutRecordingInput[];
+    connectOrCreate?: Prisma.RecordingAccessCreateOrConnectWithoutRecordingInput | Prisma.RecordingAccessCreateOrConnectWithoutRecordingInput[];
+    upsert?: Prisma.RecordingAccessUpsertWithWhereUniqueWithoutRecordingInput | Prisma.RecordingAccessUpsertWithWhereUniqueWithoutRecordingInput[];
+    createMany?: Prisma.RecordingAccessCreateManyRecordingInputEnvelope;
+    set?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    disconnect?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    delete?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    connect?: Prisma.RecordingAccessWhereUniqueInput | Prisma.RecordingAccessWhereUniqueInput[];
+    update?: Prisma.RecordingAccessUpdateWithWhereUniqueWithoutRecordingInput | Prisma.RecordingAccessUpdateWithWhereUniqueWithoutRecordingInput[];
+    updateMany?: Prisma.RecordingAccessUpdateManyWithWhereWithoutRecordingInput | Prisma.RecordingAccessUpdateManyWithWhereWithoutRecordingInput[];
+    deleteMany?: Prisma.RecordingAccessScalarWhereInput | Prisma.RecordingAccessScalarWhereInput[];
+};
+export type RecordingAccessCreateWithoutUserInput = {
+    id?: string;
+    expiresAt: Date | string;
+    createdAt?: Date | string;
+    recording: Prisma.RecordingCreateNestedOneWithoutAllowedUsersInput;
+};
+export type RecordingAccessUncheckedCreateWithoutUserInput = {
+    id?: string;
+    recordingId: string;
+    expiresAt: Date | string;
+    createdAt?: Date | string;
+};
+export type RecordingAccessCreateOrConnectWithoutUserInput = {
+    where: Prisma.RecordingAccessWhereUniqueInput;
+    create: Prisma.XOR<Prisma.RecordingAccessCreateWithoutUserInput, Prisma.RecordingAccessUncheckedCreateWithoutUserInput>;
+};
+export type RecordingAccessCreateManyUserInputEnvelope = {
+    data: Prisma.RecordingAccessCreateManyUserInput | Prisma.RecordingAccessCreateManyUserInput[];
+    skipDuplicates?: boolean;
+};
+export type RecordingAccessUpsertWithWhereUniqueWithoutUserInput = {
+    where: Prisma.RecordingAccessWhereUniqueInput;
+    update: Prisma.XOR<Prisma.RecordingAccessUpdateWithoutUserInput, Prisma.RecordingAccessUncheckedUpdateWithoutUserInput>;
+    create: Prisma.XOR<Prisma.RecordingAccessCreateWithoutUserInput, Prisma.RecordingAccessUncheckedCreateWithoutUserInput>;
+};
+export type RecordingAccessUpdateWithWhereUniqueWithoutUserInput = {
+    where: Prisma.RecordingAccessWhereUniqueInput;
+    data: Prisma.XOR<Prisma.RecordingAccessUpdateWithoutUserInput, Prisma.RecordingAccessUncheckedUpdateWithoutUserInput>;
+};
+export type RecordingAccessUpdateManyWithWhereWithoutUserInput = {
+    where: Prisma.RecordingAccessScalarWhereInput;
+    data: Prisma.XOR<Prisma.RecordingAccessUpdateManyMutationInput, Prisma.RecordingAccessUncheckedUpdateManyWithoutUserInput>;
+};
+export type RecordingAccessScalarWhereInput = {
+    AND?: Prisma.RecordingAccessScalarWhereInput | Prisma.RecordingAccessScalarWhereInput[];
+    OR?: Prisma.RecordingAccessScalarWhereInput[];
+    NOT?: Prisma.RecordingAccessScalarWhereInput | Prisma.RecordingAccessScalarWhereInput[];
+    id?: Prisma.StringFilter<"RecordingAccess"> | string;
+    recordingId?: Prisma.StringFilter<"RecordingAccess"> | string;
+    userId?: Prisma.StringFilter<"RecordingAccess"> | string;
+    expiresAt?: Prisma.DateTimeFilter<"RecordingAccess"> | Date | string;
+    createdAt?: Prisma.DateTimeFilter<"RecordingAccess"> | Date | string;
+};
+export type RecordingAccessCreateWithoutRecordingInput = {
+    id?: string;
+    expiresAt: Date | string;
+    createdAt?: Date | string;
+    user: Prisma.UserCreateNestedOneWithoutRecordingAccessInput;
+};
+export type RecordingAccessUncheckedCreateWithoutRecordingInput = {
+    id?: string;
+    userId: string;
+    expiresAt: Date | string;
+    createdAt?: Date | string;
+};
+export type RecordingAccessCreateOrConnectWithoutRecordingInput = {
+    where: Prisma.RecordingAccessWhereUniqueInput;
+    create: Prisma.XOR<Prisma.RecordingAccessCreateWithoutRecordingInput, Prisma.RecordingAccessUncheckedCreateWithoutRecordingInput>;
+};
+export type RecordingAccessCreateManyRecordingInputEnvelope = {
+    data: Prisma.RecordingAccessCreateManyRecordingInput | Prisma.RecordingAccessCreateManyRecordingInput[];
+    skipDuplicates?: boolean;
+};
+export type RecordingAccessUpsertWithWhereUniqueWithoutRecordingInput = {
+    where: Prisma.RecordingAccessWhereUniqueInput;
+    update: Prisma.XOR<Prisma.RecordingAccessUpdateWithoutRecordingInput, Prisma.RecordingAccessUncheckedUpdateWithoutRecordingInput>;
+    create: Prisma.XOR<Prisma.RecordingAccessCreateWithoutRecordingInput, Prisma.RecordingAccessUncheckedCreateWithoutRecordingInput>;
+};
+export type RecordingAccessUpdateWithWhereUniqueWithoutRecordingInput = {
+    where: Prisma.RecordingAccessWhereUniqueInput;
+    data: Prisma.XOR<Prisma.RecordingAccessUpdateWithoutRecordingInput, Prisma.RecordingAccessUncheckedUpdateWithoutRecordingInput>;
+};
+export type RecordingAccessUpdateManyWithWhereWithoutRecordingInput = {
+    where: Prisma.RecordingAccessScalarWhereInput;
+    data: Prisma.XOR<Prisma.RecordingAccessUpdateManyMutationInput, Prisma.RecordingAccessUncheckedUpdateManyWithoutRecordingInput>;
+};
+export type RecordingAccessCreateManyUserInput = {
+    id?: string;
+    recordingId: string;
+    expiresAt: Date | string;
+    createdAt?: Date | string;
+};
+export type RecordingAccessUpdateWithoutUserInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    recording?: Prisma.RecordingUpdateOneRequiredWithoutAllowedUsersNestedInput;
+};
+export type RecordingAccessUncheckedUpdateWithoutUserInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    recordingId?: Prisma.StringFieldUpdateOperationsInput | string;
+    expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type RecordingAccessUncheckedUpdateManyWithoutUserInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    recordingId?: Prisma.StringFieldUpdateOperationsInput | string;
+    expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type RecordingAccessCreateManyRecordingInput = {
+    id?: string;
+    userId: string;
+    expiresAt: Date | string;
+    createdAt?: Date | string;
+};
+export type RecordingAccessUpdateWithoutRecordingInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: Prisma.UserUpdateOneRequiredWithoutRecordingAccessNestedInput;
+};
+export type RecordingAccessUncheckedUpdateWithoutRecordingInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type RecordingAccessUncheckedUpdateManyWithoutRecordingInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type RecordingAccessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    recordingId?: boolean;
+    userId?: boolean;
+    expiresAt?: boolean;
+    createdAt?: boolean;
+    recording?: boolean | Prisma.RecordingDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["recordingAccess"]>;
+export type RecordingAccessSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    recordingId?: boolean;
+    userId?: boolean;
+    expiresAt?: boolean;
+    createdAt?: boolean;
+    recording?: boolean | Prisma.RecordingDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["recordingAccess"]>;
+export type RecordingAccessSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    recordingId?: boolean;
+    userId?: boolean;
+    expiresAt?: boolean;
+    createdAt?: boolean;
+    recording?: boolean | Prisma.RecordingDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["recordingAccess"]>;
+export type RecordingAccessSelectScalar = {
+    id?: boolean;
+    recordingId?: boolean;
+    userId?: boolean;
+    expiresAt?: boolean;
+    createdAt?: boolean;
+};
+export type RecordingAccessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "recordingId" | "userId" | "expiresAt" | "createdAt", ExtArgs["result"]["recordingAccess"]>;
+export type RecordingAccessInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    recording?: boolean | Prisma.RecordingDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+};
+export type RecordingAccessIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    recording?: boolean | Prisma.RecordingDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+};
+export type RecordingAccessIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    recording?: boolean | Prisma.RecordingDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+};
+export type $RecordingAccessPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "RecordingAccess";
+    objects: {
+        recording: Prisma.$RecordingPayload<ExtArgs>;
+        user: Prisma.$UserPayload<ExtArgs>;
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: string;
+        recordingId: string;
+        userId: string;
+        expiresAt: Date;
+        createdAt: Date;
+    }, ExtArgs["result"]["recordingAccess"]>;
+    composites: {};
+};
+export type RecordingAccessGetPayload<S extends boolean | null | undefined | RecordingAccessDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$RecordingAccessPayload, S>;
+export type RecordingAccessCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<RecordingAccessFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: RecordingAccessCountAggregateInputType | true;
+};
+export interface RecordingAccessDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['RecordingAccess'];
+        meta: {
+            name: 'RecordingAccess';
+        };
+    };
+    /**
+     * Find zero or one RecordingAccess that matches the filter.
+     * @param {RecordingAccessFindUniqueArgs} args - Arguments to find a RecordingAccess
+     * @example
+     * // Get one RecordingAccess
+     * const recordingAccess = await prisma.recordingAccess.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RecordingAccessFindUniqueArgs>(args: Prisma.SelectSubset<T, RecordingAccessFindUniqueArgs<ExtArgs>>): Prisma.Prisma__RecordingAccessClient<runtime.Types.Result.GetResult<Prisma.$RecordingAccessPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one RecordingAccess that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RecordingAccessFindUniqueOrThrowArgs} args - Arguments to find a RecordingAccess
+     * @example
+     * // Get one RecordingAccess
+     * const recordingAccess = await prisma.recordingAccess.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RecordingAccessFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, RecordingAccessFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__RecordingAccessClient<runtime.Types.Result.GetResult<Prisma.$RecordingAccessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first RecordingAccess that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingAccessFindFirstArgs} args - Arguments to find a RecordingAccess
+     * @example
+     * // Get one RecordingAccess
+     * const recordingAccess = await prisma.recordingAccess.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RecordingAccessFindFirstArgs>(args?: Prisma.SelectSubset<T, RecordingAccessFindFirstArgs<ExtArgs>>): Prisma.Prisma__RecordingAccessClient<runtime.Types.Result.GetResult<Prisma.$RecordingAccessPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first RecordingAccess that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingAccessFindFirstOrThrowArgs} args - Arguments to find a RecordingAccess
+     * @example
+     * // Get one RecordingAccess
+     * const recordingAccess = await prisma.recordingAccess.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RecordingAccessFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, RecordingAccessFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__RecordingAccessClient<runtime.Types.Result.GetResult<Prisma.$RecordingAccessPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more RecordingAccesses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingAccessFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RecordingAccesses
+     * const recordingAccesses = await prisma.recordingAccess.findMany()
+     *
+     * // Get first 10 RecordingAccesses
+     * const recordingAccesses = await prisma.recordingAccess.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const recordingAccessWithIdOnly = await prisma.recordingAccess.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends RecordingAccessFindManyArgs>(args?: Prisma.SelectSubset<T, RecordingAccessFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecordingAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a RecordingAccess.
+     * @param {RecordingAccessCreateArgs} args - Arguments to create a RecordingAccess.
+     * @example
+     * // Create one RecordingAccess
+     * const RecordingAccess = await prisma.recordingAccess.create({
+     *   data: {
+     *     // ... data to create a RecordingAccess
+     *   }
+     * })
+     *
+     */
+    create<T extends RecordingAccessCreateArgs>(args: Prisma.SelectSubset<T, RecordingAccessCreateArgs<ExtArgs>>): Prisma.Prisma__RecordingAccessClient<runtime.Types.Result.GetResult<Prisma.$RecordingAccessPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many RecordingAccesses.
+     * @param {RecordingAccessCreateManyArgs} args - Arguments to create many RecordingAccesses.
+     * @example
+     * // Create many RecordingAccesses
+     * const recordingAccess = await prisma.recordingAccess.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends RecordingAccessCreateManyArgs>(args?: Prisma.SelectSubset<T, RecordingAccessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many RecordingAccesses and returns the data saved in the database.
+     * @param {RecordingAccessCreateManyAndReturnArgs} args - Arguments to create many RecordingAccesses.
+     * @example
+     * // Create many RecordingAccesses
+     * const recordingAccess = await prisma.recordingAccess.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many RecordingAccesses and only return the `id`
+     * const recordingAccessWithIdOnly = await prisma.recordingAccess.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends RecordingAccessCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, RecordingAccessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecordingAccessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a RecordingAccess.
+     * @param {RecordingAccessDeleteArgs} args - Arguments to delete one RecordingAccess.
+     * @example
+     * // Delete one RecordingAccess
+     * const RecordingAccess = await prisma.recordingAccess.delete({
+     *   where: {
+     *     // ... filter to delete one RecordingAccess
+     *   }
+     * })
+     *
+     */
+    delete<T extends RecordingAccessDeleteArgs>(args: Prisma.SelectSubset<T, RecordingAccessDeleteArgs<ExtArgs>>): Prisma.Prisma__RecordingAccessClient<runtime.Types.Result.GetResult<Prisma.$RecordingAccessPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one RecordingAccess.
+     * @param {RecordingAccessUpdateArgs} args - Arguments to update one RecordingAccess.
+     * @example
+     * // Update one RecordingAccess
+     * const recordingAccess = await prisma.recordingAccess.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends RecordingAccessUpdateArgs>(args: Prisma.SelectSubset<T, RecordingAccessUpdateArgs<ExtArgs>>): Prisma.Prisma__RecordingAccessClient<runtime.Types.Result.GetResult<Prisma.$RecordingAccessPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more RecordingAccesses.
+     * @param {RecordingAccessDeleteManyArgs} args - Arguments to filter RecordingAccesses to delete.
+     * @example
+     * // Delete a few RecordingAccesses
+     * const { count } = await prisma.recordingAccess.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends RecordingAccessDeleteManyArgs>(args?: Prisma.SelectSubset<T, RecordingAccessDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more RecordingAccesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingAccessUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RecordingAccesses
+     * const recordingAccess = await prisma.recordingAccess.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends RecordingAccessUpdateManyArgs>(args: Prisma.SelectSubset<T, RecordingAccessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more RecordingAccesses and returns the data updated in the database.
+     * @param {RecordingAccessUpdateManyAndReturnArgs} args - Arguments to update many RecordingAccesses.
+     * @example
+     * // Update many RecordingAccesses
+     * const recordingAccess = await prisma.recordingAccess.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more RecordingAccesses and only return the `id`
+     * const recordingAccessWithIdOnly = await prisma.recordingAccess.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends RecordingAccessUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, RecordingAccessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecordingAccessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one RecordingAccess.
+     * @param {RecordingAccessUpsertArgs} args - Arguments to update or create a RecordingAccess.
+     * @example
+     * // Update or create a RecordingAccess
+     * const recordingAccess = await prisma.recordingAccess.upsert({
+     *   create: {
+     *     // ... data to create a RecordingAccess
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RecordingAccess we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RecordingAccessUpsertArgs>(args: Prisma.SelectSubset<T, RecordingAccessUpsertArgs<ExtArgs>>): Prisma.Prisma__RecordingAccessClient<runtime.Types.Result.GetResult<Prisma.$RecordingAccessPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of RecordingAccesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingAccessCountArgs} args - Arguments to filter RecordingAccesses to count.
+     * @example
+     * // Count the number of RecordingAccesses
+     * const count = await prisma.recordingAccess.count({
+     *   where: {
+     *     // ... the filter for the RecordingAccesses we want to count
+     *   }
+     * })
+    **/
+    count<T extends RecordingAccessCountArgs>(args?: Prisma.Subset<T, RecordingAccessCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], RecordingAccessCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a RecordingAccess.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingAccessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RecordingAccessAggregateArgs>(args: Prisma.Subset<T, RecordingAccessAggregateArgs>): Prisma.PrismaPromise<GetRecordingAccessAggregateType<T>>;
+    /**
+     * Group by RecordingAccess.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordingAccessGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends RecordingAccessGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: RecordingAccessGroupByArgs['orderBy'];
+    } : {
+        orderBy?: RecordingAccessGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, RecordingAccessGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRecordingAccessGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the RecordingAccess model
+     */
+    readonly fields: RecordingAccessFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for RecordingAccess.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__RecordingAccessClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    recording<T extends Prisma.RecordingDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RecordingDefaultArgs<ExtArgs>>): Prisma.Prisma__RecordingClient<runtime.Types.Result.GetResult<Prisma.$RecordingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the RecordingAccess model
+ */
+export interface RecordingAccessFieldRefs {
+    readonly id: Prisma.FieldRef<"RecordingAccess", 'String'>;
+    readonly recordingId: Prisma.FieldRef<"RecordingAccess", 'String'>;
+    readonly userId: Prisma.FieldRef<"RecordingAccess", 'String'>;
+    readonly expiresAt: Prisma.FieldRef<"RecordingAccess", 'DateTime'>;
+    readonly createdAt: Prisma.FieldRef<"RecordingAccess", 'DateTime'>;
+}
+/**
+ * RecordingAccess findUnique
+ */
+export type RecordingAccessFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecordingAccess
+     */
+    select?: Prisma.RecordingAccessSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RecordingAccess
+     */
+    omit?: Prisma.RecordingAccessOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RecordingAccessInclude<ExtArgs> | null;
+    /**
+     * Filter, which RecordingAccess to fetch.
+     */
+    where: Prisma.RecordingAccessWhereUniqueInput;
+};
+/**
+ * RecordingAccess findUniqueOrThrow
+ */
+export type RecordingAccessFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecordingAccess
+     */
+    select?: Prisma.RecordingAccessSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RecordingAccess
+     */
+    omit?: Prisma.RecordingAccessOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RecordingAccessInclude<ExtArgs> | null;
+    /**
+     * Filter, which RecordingAccess to fetch.
+     */
+    where: Prisma.RecordingAccessWhereUniqueInput;
+};
+/**
+ * RecordingAccess findFirst
+ */
+export type RecordingAccessFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecordingAccess
+     */
+    select?: Prisma.RecordingAccessSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RecordingAccess
+     */
+    omit?: Prisma.RecordingAccessOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RecordingAccessInclude<ExtArgs> | null;
+    /**
+     * Filter, which RecordingAccess to fetch.
+     */
+    where?: Prisma.RecordingAccessWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of RecordingAccesses to fetch.
+     */
+    orderBy?: Prisma.RecordingAccessOrderByWithRelationInput | Prisma.RecordingAccessOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for RecordingAccesses.
+     */
+    cursor?: Prisma.RecordingAccessWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` RecordingAccesses from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` RecordingAccesses.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of RecordingAccesses.
+     */
+    distinct?: Prisma.RecordingAccessScalarFieldEnum | Prisma.RecordingAccessScalarFieldEnum[];
+};
+/**
+ * RecordingAccess findFirstOrThrow
+ */
+export type RecordingAccessFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecordingAccess
+     */
+    select?: Prisma.RecordingAccessSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RecordingAccess
+     */
+    omit?: Prisma.RecordingAccessOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RecordingAccessInclude<ExtArgs> | null;
+    /**
+     * Filter, which RecordingAccess to fetch.
+     */
+    where?: Prisma.RecordingAccessWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of RecordingAccesses to fetch.
+     */
+    orderBy?: Prisma.RecordingAccessOrderByWithRelationInput | Prisma.RecordingAccessOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for RecordingAccesses.
+     */
+    cursor?: Prisma.RecordingAccessWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` RecordingAccesses from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` RecordingAccesses.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of RecordingAccesses.
+     */
+    distinct?: Prisma.RecordingAccessScalarFieldEnum | Prisma.RecordingAccessScalarFieldEnum[];
+};
+/**
+ * RecordingAccess findMany
+ */
+export type RecordingAccessFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecordingAccess
+     */
+    select?: Prisma.RecordingAccessSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RecordingAccess
+     */
+    omit?: Prisma.RecordingAccessOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RecordingAccessInclude<ExtArgs> | null;
+    /**
+     * Filter, which RecordingAccesses to fetch.
+     */
+    where?: Prisma.RecordingAccessWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of RecordingAccesses to fetch.
+     */
+    orderBy?: Prisma.RecordingAccessOrderByWithRelationInput | Prisma.RecordingAccessOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing RecordingAccesses.
+     */
+    cursor?: Prisma.RecordingAccessWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` RecordingAccesses from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` RecordingAccesses.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of RecordingAccesses.
+     */
+    distinct?: Prisma.RecordingAccessScalarFieldEnum | Prisma.RecordingAccessScalarFieldEnum[];
+};
+/**
+ * RecordingAccess create
+ */
+export type RecordingAccessCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecordingAccess
+     */
+    select?: Prisma.RecordingAccessSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RecordingAccess
+     */
+    omit?: Prisma.RecordingAccessOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RecordingAccessInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a RecordingAccess.
+     */
+    data: Prisma.XOR<Prisma.RecordingAccessCreateInput, Prisma.RecordingAccessUncheckedCreateInput>;
+};
+/**
+ * RecordingAccess createMany
+ */
+export type RecordingAccessCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RecordingAccesses.
+     */
+    data: Prisma.RecordingAccessCreateManyInput | Prisma.RecordingAccessCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * RecordingAccess createManyAndReturn
+ */
+export type RecordingAccessCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecordingAccess
+     */
+    select?: Prisma.RecordingAccessSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RecordingAccess
+     */
+    omit?: Prisma.RecordingAccessOmit<ExtArgs> | null;
+    /**
+     * The data used to create many RecordingAccesses.
+     */
+    data: Prisma.RecordingAccessCreateManyInput | Prisma.RecordingAccessCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RecordingAccessIncludeCreateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * RecordingAccess update
+ */
+export type RecordingAccessUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecordingAccess
+     */
+    select?: Prisma.RecordingAccessSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RecordingAccess
+     */
+    omit?: Prisma.RecordingAccessOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RecordingAccessInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a RecordingAccess.
+     */
+    data: Prisma.XOR<Prisma.RecordingAccessUpdateInput, Prisma.RecordingAccessUncheckedUpdateInput>;
+    /**
+     * Choose, which RecordingAccess to update.
+     */
+    where: Prisma.RecordingAccessWhereUniqueInput;
+};
+/**
+ * RecordingAccess updateMany
+ */
+export type RecordingAccessUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RecordingAccesses.
+     */
+    data: Prisma.XOR<Prisma.RecordingAccessUpdateManyMutationInput, Prisma.RecordingAccessUncheckedUpdateManyInput>;
+    /**
+     * Filter which RecordingAccesses to update
+     */
+    where?: Prisma.RecordingAccessWhereInput;
+    /**
+     * Limit how many RecordingAccesses to update.
+     */
+    limit?: number;
+};
+/**
+ * RecordingAccess updateManyAndReturn
+ */
+export type RecordingAccessUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecordingAccess
+     */
+    select?: Prisma.RecordingAccessSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RecordingAccess
+     */
+    omit?: Prisma.RecordingAccessOmit<ExtArgs> | null;
+    /**
+     * The data used to update RecordingAccesses.
+     */
+    data: Prisma.XOR<Prisma.RecordingAccessUpdateManyMutationInput, Prisma.RecordingAccessUncheckedUpdateManyInput>;
+    /**
+     * Filter which RecordingAccesses to update
+     */
+    where?: Prisma.RecordingAccessWhereInput;
+    /**
+     * Limit how many RecordingAccesses to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RecordingAccessIncludeUpdateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * RecordingAccess upsert
+ */
+export type RecordingAccessUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecordingAccess
+     */
+    select?: Prisma.RecordingAccessSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RecordingAccess
+     */
+    omit?: Prisma.RecordingAccessOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RecordingAccessInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the RecordingAccess to update in case it exists.
+     */
+    where: Prisma.RecordingAccessWhereUniqueInput;
+    /**
+     * In case the RecordingAccess found by the `where` argument doesn't exist, create a new RecordingAccess with this data.
+     */
+    create: Prisma.XOR<Prisma.RecordingAccessCreateInput, Prisma.RecordingAccessUncheckedCreateInput>;
+    /**
+     * In case the RecordingAccess was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.RecordingAccessUpdateInput, Prisma.RecordingAccessUncheckedUpdateInput>;
+};
+/**
+ * RecordingAccess delete
+ */
+export type RecordingAccessDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecordingAccess
+     */
+    select?: Prisma.RecordingAccessSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RecordingAccess
+     */
+    omit?: Prisma.RecordingAccessOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RecordingAccessInclude<ExtArgs> | null;
+    /**
+     * Filter which RecordingAccess to delete.
+     */
+    where: Prisma.RecordingAccessWhereUniqueInput;
+};
+/**
+ * RecordingAccess deleteMany
+ */
+export type RecordingAccessDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which RecordingAccesses to delete
+     */
+    where?: Prisma.RecordingAccessWhereInput;
+    /**
+     * Limit how many RecordingAccesses to delete.
+     */
+    limit?: number;
+};
+/**
+ * RecordingAccess without action
+ */
+export type RecordingAccessDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RecordingAccess
+     */
+    select?: Prisma.RecordingAccessSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RecordingAccess
+     */
+    omit?: Prisma.RecordingAccessOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RecordingAccessInclude<ExtArgs> | null;
+};
+//# sourceMappingURL=RecordingAccess.d.ts.map
