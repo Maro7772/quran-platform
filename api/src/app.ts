@@ -27,8 +27,11 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve uploaded videos and files statically
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+// Serve uploaded videos and files statically safely
+const uploadsPath = process.env.VERCEL
+  ? path.join(os.tmpdir(), "uploads")
+  : path.join(process.cwd(), "uploads");
+app.use("/uploads", express.static(uploadsPath));
 
 // Public API Routes
 app.use("/api/auth", authRoutes);

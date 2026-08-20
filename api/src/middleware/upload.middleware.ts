@@ -1,15 +1,28 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import os from 'os';
 
-// Ensure upload directory exists
-const uploadDir = path.join(process.cwd(), 'uploads', 'videos');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+// Ensure upload directory exists safely in both local and serverless (Vercel) environments
+const uploadDir = process.env.VERCEL
+  ? path.join(os.tmpdir(), 'uploads', 'videos')
+  : path.join(process.cwd(), 'uploads', 'videos');
+
+try {
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (err) {
+  console.warn('Could not create upload directory synchronously:', err);
 }
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
+    try {
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+    } catch {}
     cb(null, uploadDir);
   },
   filename: (_req, file, cb) => {
